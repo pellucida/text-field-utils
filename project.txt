@@ -1,0 +1,13 @@
+
+Usage: project -f field_list [-o outfile] [-d "input_field_separators"]
+          [-O "output_field_separator"] infiles...
+
+-f field_list	- numbered from 1 
+		- $ refers to the last field
+		- $_1 $_2  refers to second last, third last
+		- n-m where n <= m selects n,n+1..m
+		- n-m where n >= m selects n,n-1..m
+		- n-$_1 where n <= $_1 select n,n+1..second last field
+		- $_2-n where $_2 >= n select second last,third last..n+1,n
+eg
+project -d: -f '$-1,2-$_2,3' /etc/passwd	
