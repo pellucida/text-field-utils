@@ -174,15 +174,18 @@ static	void	process (FILE* input, FILE* output, int pivot) {
 		int	nflds_cur	= 0;
 		while (state != finish) {
 			if (str_getline (input, line)!=EOF) {
-				nflds_cur	= str_split (line, current, config.input.separators.field);
-				if (nflds_cur > pivot) {
-					FAIL(
-						summary_initialize (summary, current, pivot)
-					);
-					finish	= state;
-				}
-				else	{	// no pivot field so just output
-					output_fields (output, current, summary, pivot);
+				// Ignore empty lines
+				if (str_length (line) > 0) {
+					nflds_cur	= str_split (line, current, config.input.separators.field);
+					if (nflds_cur > pivot) {
+						FAIL(
+							summary_initialize (summary, current, pivot)
+						);
+						finish	= state;
+					}
+					else	{	// no pivot field so just output
+						output_fields (output, current, summary, pivot);
+					}
 				}
 			}
 			else	{
@@ -194,31 +197,34 @@ static	void	process (FILE* input, FILE* output, int pivot) {
 		finish	= EOF;
 		while (state != finish) {
 			if (str_getline(input, line)!=EOF) {
-				int	nflds_next = str_split (line, next, config.input.separators.field);
-				if (nflds_next > pivot) {
-					// if current and next are identical(omitting the pivot elt)
-					// add the pivot elt to summary
-					if (nflds_next==nflds_cur &&
-						strvec_compare_except (current, next, pivot) == 0) {
-						FAIL( 
+				// Ignore empty lines
+				if (str_length (line) > 0) {
+					int	nflds_next = str_split (line, next, config.input.separators.field);
+					if (nflds_next > pivot) {
+						// if current and next are identical(omitting the pivot elt)
+						// add the pivot elt to summary
+						if (nflds_next==nflds_cur &&
+							strvec_compare_except (current, next, pivot) == 0) {
+							FAIL( 
 							summary_append (summary, next, pivot)
-						);
+							);
+						}
+						else	{
+						// output current and make next current
+							output_fields (output, current, summary, pivot);
+							SWAP (current, next);
+							FAIL(
+								summary_initialize (summary, current, pivot)
+							);
+						}
 					}
 					else	{
-					// output current and make next current
+						// no pivot field in next just output both and start again
+						// a the first loop
 						output_fields (output, current, summary, pivot);
-						SWAP (current, next);
-						FAIL(
-							summary_initialize (summary, current, pivot)
-						);
+						output_fields (output, next, summary, pivot);
+						finish	= state;
 					}
-				}
-				else	{
-					// no pivot field in next just output both and start again
-					// a the first loop
-					output_fields (output, current, summary, pivot);
-					output_fields (output, next, summary, pivot);
-					finish	= state;
 				}
 			}
 			else	{

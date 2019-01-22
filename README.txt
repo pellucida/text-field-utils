@@ -51,3 +51,6 @@ sort vacations.txt | collect -c1 -d: | project -d: -f2,3,1 | sort
 	rome:2007:peter
 	rome:2009:alice
 
+Summarize the last field where number of fields varies
+
+project -f '$,2-$_1' | sort | collect -c1 | project -f '2-$,1'
