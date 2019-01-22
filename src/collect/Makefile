@@ -1,0 +1,21 @@
+
+INCLUDES=../include -I../str -I../strsplit -I../strvec -I../strprintf
+
+STR_PRINTF_O	= ../strprintf/str_printf.o
+
+CFLAGS	= -g -I$(INCLUDES) 
+
+LDFLAGS	= -g 
+
+
+OBJ	= collect.o ../str/str.o ../str/str_io.o ../strprintf/str_printf.o ../strvec/strvec.o ../strsplit/strsplit.o
+
+
+HEADERS=str.h str_io.h str_printf.h
+
+collect:	$(OBJ)
+
+collect.o:	collect.c 
+
+clean:
+	rm -f *.o a.out
