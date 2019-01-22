@@ -1,0 +1,14 @@
+
+The str* subdirectories contain a simple
+string implementation in C
+	str - basic string functions 
+	strprintf - two implementation to support printf formats
+                    1. glibc printf customization propagates to system printf etc
+                    2. reparse format specification use custom *printf functions
+	strvec - basic vector(array) of strings
+	strsplit - split string into vector of strings (fields)
+
+The fld* subdirectories contain field specification code for project
+	fld - data representation 
+	fldvec - basic vector (array) of fld
+	fldparse - (recursive descent) parse for field specs
