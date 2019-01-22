@@ -1,0 +1,53 @@
+
+Utilities to manipulate character separated text fields.
+eg
+/etc/passwd
+
+collect - summarizes a specified field
+eg vacations.txt
+	peter:paris:2007
+	paul:london:2010
+	allen:berlin:2010
+	alice:rome:2005
+	bob:london:2010
+	peter:rome:2007
+	alice:rome:2009
+
+sort vacations.txt | collect -c1 -d: 
+
+	alice:rome:2005
+	alice:rome:2009
+	allen:berlin:2010
+	bob,paul:london:2010
+	peter:paris:2007
+	peter:rome:2007
+
+sort vacations.txt | collect -c2 -d: 
+
+	alice:rome:2005
+	alice:rome:2009
+	allen:berlin:2010
+	bob:london:2010
+	paul:london:2010
+	peter:paris,rome:2007
+
+sort vacations.txt | collect -c3 -d: 
+
+	alice:rome:2005,2009
+	allen:berlin:2010
+	bob:london:2010
+	paul:london:2010
+	peter:paris:2007
+	peter:rome:2007
+
+Rerorganise the fields with project
+
+sort vacations.txt | collect -c1 -d: | project -d: -f2,3,1 | sort
+
+	berlin:2010:allen
+	london:2010:bob,paul
+	paris:2007:peter
+	rome:2005:alice
+	rome:2007:peter
+	rome:2009:alice
+
