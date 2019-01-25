@@ -1,6 +1,6 @@
 
 
-SUBDIRS	= str strprintf strvec strsplit collect
+SUBDIRS	= str strprintf strvec strsplit collect uncollect
 SUBDIRS	+= fld fldvec fldparse  project
 .PHONY: all $(SUBDIRS)
 
@@ -11,7 +11,7 @@ MAKEFLAGS=GLIBC_PRINTF=-DGLIBC_PRINTF STR_PRINTF_DIR=glibc_printf _GNU_SOURCE=-D
 $(SUBDIRS):
 	$(MAKE) -C $@ 
 
-clean:	
+distclean clean:	
 	for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir $@; \
 	done

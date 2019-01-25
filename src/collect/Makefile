@@ -19,3 +19,7 @@ collect.o:	collect.c
 
 clean:
 	rm -f *.o a.out
+
+distclean: clean
+	rm -f collect
+	

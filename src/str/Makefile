@@ -14,3 +14,5 @@ str_io.o:	str_io.c str_io.h
 
 clean:	
 	rm -f *.o a.out
+
+distclean:	clean

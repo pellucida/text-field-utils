@@ -5,3 +5,5 @@ strsplit.o: strsplit.c strsplit.h ../strvec/strvec.h ../str/str.h ../str/str_inl
 
 clean:
 	rm -f a.out *.o 
+
+distclean:	clean

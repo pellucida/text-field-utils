@@ -7,3 +7,5 @@ debug_strvec.o: strvec.c strvec.h ../str/str.h
 
 clean:
 	rm -rf a.out *.o 
+
+distclean:	clean

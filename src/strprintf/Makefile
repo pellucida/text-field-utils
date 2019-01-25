@@ -8,3 +8,5 @@ str_printf.o: $(STR_PRINTF_DIR)/str_printf.c str_printf.h
 
 clean:
 	rm -f *.o a.out
+
+distclean:	clean

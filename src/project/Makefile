@@ -19,6 +19,9 @@ project:	$(OBJ)
 clean:
 	rm -f *.o a.out
 
+distclean:	clean
+	rm -f project
+
 project.o: project.c  \
  ../str/str.h ../str/str_type.h ../str/str_inline.h ../str/str_io.h \
  ../str/str.h ../strprintf/str_printf.o ../strvec/strvec.h ../strsplit/strsplit.h ../fld/fld.h \
