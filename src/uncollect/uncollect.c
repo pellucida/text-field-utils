@@ -58,38 +58,48 @@ static	inline	char*	programname (void) {
 }
 /* -----------------
 */
-void	output_line (FILE* output, strvec_t* current, str_t* subfld, int pivot) {
+// Build a format string from the fixed fields leaving a % spec for
+// collected field
+//
+void	prepare (str_t* fmt, strvec_t* current, int pivot) {
 	int	last	= strvec_last (current);
 	char*	odelim	= config.output.separators.field;
+	str_t*	fldfmt	= str_auto ();
 	int	j	= 0;
 	for (j=0; j < last; ++j) {
-		str_t*	outstr	= 0;
-		if (j==pivot) {
-			outstr	= subfld;
-		}
-		else	{
-			outstr	= strvec_at_nocopy (current, j);
-		}
-		if (j==last-1) {
+		if (j+1==last) {
 			odelim	= "\n";
 		}
-		str_printf (output, "%" STR_T_FMT_CHAR "%s", outstr, odelim);
+		if (j==pivot) {
+			str_Sprintf (fldfmt, "%%" STR_T_FMT_CHAR "%s", odelim);
+		}	
+		else {
+			str_t*	fldstr	= strvec_at_nocopy (current, j);
+			str_Sprintf (fldfmt, "%" STR_T_FMT_CHAR "%s",  fldstr, odelim);
+		}
+		str_append (fmt, fldfmt);
 	}
+	str_Delete (&fldfmt);	// Does nothing if no heap storage
 }
+	
 void	output_fields (FILE* output, strvec_t* current, strvec_t* summary, int pivot) {
 	int	last	= strvec_last (current);
+	str_t*	fmt	= str_auto ();
+	prepare (fmt, current, pivot);
 	if (last < pivot) {
-		output_line (output, current, 0, pivot);
+		str_printf_str (output, fmt);
 	}
 	else {
 		int	nsf	= strvec_last (summary);
 		int	i	= 0;
 		for (i=0; i < nsf; ++i) {
 			str_t*	subfld	= strvec_at_nocopy (summary, i);
-			output_line (output, current, subfld, pivot);
+			str_printf_str (output, fmt, subfld);
 		}	
 	}
+	str_Delete (&fmt);	// Does nothing if no heap storage
 }
+
 static	void	Usage() {
 	fprintf (stderr, "Usage: %s [-i infile] [-o outfile] [-c summary_field] \n"
 		  	 "          [-d \"input_field_sep\"] [-O \"output_field_sep\"] [-s \"summary_sep\"]\n",
@@ -122,14 +132,9 @@ static	void	process (FILE* input, FILE* output, int pivot) {
 		if (str_getline (input, line)!=EOF) {
 			// Ignore empty lines
 			if (str_length (line) > 0) {
-				int	nflds_cur	= str_split (line, current, config.input.separators.field);
-				if (nflds_cur >= pivot) {
-					str_split (strvec_at (current, pivot), summary, config.input.separators.subfield);
-					output_fields (output, current, summary, pivot);
-				}
-				else	{	// no pivot field so just output
-					output_line (output, current, 0, pivot);
-				}
+				str_split (line, current, config.input.separators.field);
+				str_split (strvec_at (current, pivot), summary, config.input.separators.subfield);
+				output_fields (output, current, summary, pivot);
 			}
 		}
 		else	{

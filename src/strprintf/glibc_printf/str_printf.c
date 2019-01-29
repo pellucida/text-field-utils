@@ -115,4 +115,12 @@ int	str_Sprintf (str_t* buf, const char* fmt,...) {
 	va_end (ap);
 	return	result;
 }
+int	str_printf_str (FILE* output, str_t* fmt,...) {
+	va_list	ap;
+	int	result	= 0;
+	va_start (ap, fmt);
+	result	= str_vprintf (output, str_storage (fmt), ap);
+	va_end (ap);
+	return	result;
+}
 # endif

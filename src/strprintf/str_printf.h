@@ -31,5 +31,6 @@ int     str_vprintf (FILE* output, const char* fmt, va_list ap);
 int     str_printf (FILE* output, const char* fmt,...);
 int     str_vSprintf (str_t* buf, const char* fmt, va_list ap);
 int     str_Sprintf (str_t*  buf, const char* fmt,...);
+int     str_printf_str (FILE* output, str_t* fmt,...);
 # endif
 # endif

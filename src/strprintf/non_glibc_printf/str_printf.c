@@ -27,6 +27,7 @@ int	str_vSprintf (str_t* __restrict ss, const char* __restrict fmt, va_list ap) 
 	char* 	t	= (char*) fmt;
 
 	char	fmt_copy [strlen(t)+1]; // copy parts of fmt into here 
+	str_clear (ss);
 	while (*t) {
 		if (*t=='%') {
 			char*	q	= strpbrk (t+1, fmt_letters);
@@ -138,4 +139,13 @@ int	str_vprintf (FILE* output, const char* __restrict fmt, va_list ap) {
 	fwrite (str_storage(buffer), 1, count, output);
 	str_Delete (&buffer);
 	return count;
+}
+int	str_printf_str (FILE* output, str_t* fmt, ...) {
+	va_list ap;
+        va_start (ap, fmt);
+        int     count   = 0;
+        str_t*  buffer  = str_auto();
+        count   = str_vSprintf (buffer, str_storage (fmt), ap);
+        fwrite (str_storage(buffer), 1, count, output);
+        str_Delete (&buffer);
 }
