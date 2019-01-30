@@ -29,7 +29,8 @@
 	.x.flags = makeflags (ST_CONST, ST_CONST, T_LONG),	\
 	.x.size = sizeof(longcstr),				\
 	.x.str = longcstr }}
-	
+
+
 // --
 static	inline	strflag_t	str_flags (str_t* s) {
 	return	s->n.flags;
@@ -88,5 +89,24 @@ static  inline  void str_copyin (str_t* dst, strsize_t offset, const char* s, si
 	str_setlength (dst, offset+len);
         guard (dst);
 }
+// --
+// Place a cstr copy in storage
+static	inline	char*	str_cstr_storage (char* storage, size_t storesize, str_t* str) {
+	size_t	n	= str_length (str);
+	n	= n < storesize ?n : storesize-1;
+	memcpy (storage, str_storage (str), n);
+	storage [n]	= '\0';
+	return	storage;
+}	
+// Make a C string copy of str_t str in heap storage
+static	inline	char*	str_cstr (str_t* str) {
+	size_t	len	= str_length (str);
+	char*	s	= calloc (sizeof (*s), len+1);
+	return	str_cstr_storage (s, len+1, str); 
+}
+// Make a C string copy of str_t str on stack
+# define	str_cstr_auto(str)	\
+	str_cstr_storage (alloca (str_length(str)+1), str_length(str)+1, str)
 
 # endif
+
