@@ -9,7 +9,7 @@
 -d chars  - the character(s) delimiting fields default ":"
 -O chars  - string separating fields on output default ":"
 -S chars  - string separating summarized fields default ","
-
+```
 
 Input must be sorted as only adjacent lines are summarized.
 
