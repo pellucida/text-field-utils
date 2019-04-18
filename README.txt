@@ -13,7 +13,7 @@ eg vacations.txt
 	peter:rome:2007
 	alice:rome:2009
 
-sort vacations.txt | collect -c1 -d: 
+sort vacations.txt | <b>collect -c1 -d: </b>
 
 	alice:rome:2005
 	alice:rome:2009
