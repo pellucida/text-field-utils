@@ -1,5 +1,6 @@
 
-## Usage
+## collect
+#### Usage
 collect [-i infile] [-o outfile] [-c summary_field] 
           [-d "input_field_sep"] [-O "output_field_sep"] [-S "summary_sep"]
           [-D](duplicates) [-U](unsorted) [-E] (empty fields ok)
