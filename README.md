@@ -22,7 +22,7 @@ sort vacations.txt | <b>collect -c1 -d: </b>
 	peter:paris:2007
 	peter:rome:2007
 
-sort vacations.txt | collect -c2 -d: 
+sort vacations.txt | <b>collect -c2 -d: </b>
 
 	alice:rome:2005
 	alice:rome:2009
@@ -31,7 +31,7 @@ sort vacations.txt | collect -c2 -d:
 	paul:london:2010
 	peter:paris,rome:2007
 
-sort vacations.txt | collect -c3 -d: 
+sort vacations.txt | <b>collect -c3 -d: </b>
 
 	alice:rome:2005,2009
 	allen:berlin:2010
@@ -42,7 +42,7 @@ sort vacations.txt | collect -c3 -d:
 
 Rerorganise the fields with project
 
-sort vacations.txt | collect -c1 -d: | project -d: -f2,3,1 | sort
+sort vacations.txt | <b>collect -c1 -d:</b> | <b>project -d: -f2,3,1</b> | sort
 
 	berlin:2010:allen
 	london:2010:bob,paul
