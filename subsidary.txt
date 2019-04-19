@@ -12,3 +12,37 @@ The fld* subdirectories contain field specification code for project
 	fld - data representation 
 	fldvec - basic vector (array) of fld
 	fldparse - (recursive descent) parse for field specs
+----
+'str' string implementation
+
+Strings are usually quite small but with a few larger ones here and there.
+The idea is to define a fixed size string (short_str_t) that will hold +90% of strings but
+that can change into a dynamic string that can contain longer stings (long_str_t)
+By defining these two string structures to share a common prefix and defining a 
+union type (str_t) and a collection of functions to implement the usual string
+functions the mechanics of adjusting the data represention can be hidden.
+
+// "str/str_type.h"
+struct	short_str {
+	strsize_t	length;
+	strflag_t	flags;
+	char		str [SHORTSTRSIZE+GUARD];
+}; 
+struct	long_str {
+	strsize_t	length;
+	strflag_t	flags;
+	strsize_t	size;
+	char*		str;
+};
+// Note that the long_str implementation wastes 
+//	(SHORSTRSIZE + GUARD) - (sizeof(strsize_t) + sizeof(char*)) bytes
+// Here (124 + 1) - (2 + 4) == 119 
+// Adjusting SHORTSTRSTORAGE from 128 to 64 ==> SHORTSTRSIZE == 60 and waste == 55
+union	str {
+	shortstr_t	n;
+	longstr_t	x;
+};
+
+static	inline	strsize_t	str_length (str_t* s) {
+	return	s->n.length;	// s->x.length equally good
+}
