@@ -40,7 +40,7 @@ static	int	str_fmt_arginfo (const struct printf_info* info, size_t n,
         return 1;
 }
 static	int	str_fmt_print (
-		FILE* stream,
+		FILE* stream,		// Unexpectly this supports all streams not just files
 		const struct printf_info* info,
 		const void* const* args)
 {
@@ -75,10 +75,10 @@ void __attribute__((constructor, visibility("hidden"))) str_fmt_init (void) {
 }
 
 /*
-// Extra functions on top of printf extension support for %S
+// Extra functions on top of printf extension support for %STR_T_FMT_CHAR (%T)
 */
 int	str_vprintf (FILE* output, const char* fmt, va_list ap) {
-	int	result	= vfprintf (output, fmt, ap);
+	int	result	= vfprintf (output, fmt, ap); // The magic is now in the extension (above)
 	return result;
 }
 int	str_printf (FILE* output, const char* fmt,...) {
