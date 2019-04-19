@@ -11,7 +11,7 @@
 
 /*
 //	Use printf to print usual formats and
-//	locate and rewrite the str_t* format (%S) to %s
+//	locate and rewrite the str_t* format %STR_T_FMT_CHAR (%T) to %s
 //	and use printf.
 //
 //	GLIBC: can install own extension to the standard printf
@@ -47,7 +47,7 @@ int	str_vSprintf (str_t* __restrict ss, const char* __restrict fmt, va_list ap) 
 						}
 						fmt_copy [i++]	= *p++;
 					}
-					fmt_copy [i++]	= 's'; /* change 'S' to 's' */
+					fmt_copy [i++]	= 's'; /* change STR_T_FMT_CHAR:'T' to 's' */
 					fmt_copy [i++]	= '\0';
 
 					str_t*	s = va_arg (ap, str_t*);
