@@ -4,7 +4,9 @@ eg
 /etc/passwd
 
 collect - summarizes a specified field
+
 eg vacations.txt
+
 	peter:paris:2007
 	paul:london:2010
 	allen:berlin:2010
@@ -40,7 +42,7 @@ sort vacations.txt | <b>collect -c3 -d: </b>
 	peter:paris:2007
 	peter:rome:2007
 
-Rerorganise the fields with project
+Reorganise the fields with <b>project</b>
 
 sort vacations.txt | <b>collect -c1 -d:</b> | <b>project -d: -f2,3,1</b> | sort
 
@@ -53,4 +55,4 @@ sort vacations.txt | <b>collect -c1 -d:</b> | <b>project -d: -f2,3,1</b> | sort
 
 Summarize the last field where number of fields varies
 
-project -f '$,2-$_1' | sort | collect -c1 | project -f '2-$,1'
+<b>project</b> -f '$,2-$_1' | sort | <b>collect</b> -c1 | <b>project</b> -f '2-$,1'
