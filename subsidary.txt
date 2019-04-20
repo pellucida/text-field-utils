@@ -40,8 +40,8 @@ typedef	struct	long_str longstr_t;
 
 // Note that the long_str implementation wastes 
 //	(SHORSTRSIZE + GUARD) - (sizeof(strsize_t) + sizeof(char*)) bytes
-// Here (124 + 1) - (2 + 4) == 119 
-// Adjusting SHORTSTRSTORAGE from 128 to 64 ==> SHORTSTRSIZE == 60 and waste == 55
+// Here (122 + 1) - (4 + 8) == 111 
+// Adjusting SHORTSTRSTORAGE from 128 to 64 ==> SHORTSTRSIZE == 58 and waste == 47
 union	str {
 	shortstr_t	n;
 	longstr_t	x;
