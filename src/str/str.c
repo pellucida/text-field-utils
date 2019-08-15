@@ -185,17 +185,21 @@ int	str_appendnchar (str_t* dst, char* s, strsize_t n) {
 }
 // Have to be careful of src == dst when representation flips from short->long
 // as part of the "src" string data is overwriten before copying
+// Subtle bug where src == dst and _appendnchar() call _grow() and relocates ".str"
+
 int	str_append (str_t* dst, str_t* src) {
 	int	result	= err;
-	str_t*	safesrc	= str_auto();
-	if (dst == src && str_is_short (dst)) {
-		str_copy (safesrc, dst);
+	char*		cstr	= str_storage (src);
+	strsize_t	slen	= str_length (src);
+
+	if (dst == src) {
+		char*	srccpy	= alloca (slen); // We can ignore the terminal \0
+		memcpy (srccpy, cstr, slen);
+		result	= str_appendnchar (dst, srccpy, slen);
 	}
 	else	{
-		safesrc	= src;
+		result	= str_appendnchar (dst, cstr, slen);
 	}
-	result	= str_appendnchar (dst,
-			 str_storage (safesrc), str_length(safesrc));
 	return	result;
 }
 
