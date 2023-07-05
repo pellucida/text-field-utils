@@ -12,7 +12,7 @@
 static	void	fld_listerr_print (char s[], size_t position) {
 	fprintf (stderr, "ERROR: field list syntax:\n");
 	fprintf (stderr, "       %s\n", s);
-	fprintf (stderr, "       %*s%c\n", position, "", '^');
+	fprintf (stderr, "       %*s%c\n", (int)position, "", '^');
 }
 // look for an integer (*np) in s starting at (*ip) update (*ip) to index
 // the character after the end of the integer.
@@ -62,7 +62,6 @@ static	int	get_expression (char s[], size_t* ip, point_t* fp) {
 	}
 	else if (isdigit(s[i]) && s[i] != '0') {
 		fldnr_t	n	= 0;
-		char*	np	= 0;
 		size_t	j	= i;
 		if (get_number (s, &j, &n)==ok) {
 			fp->origin	= ORG_BEG;

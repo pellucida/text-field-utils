@@ -238,7 +238,6 @@ int	main (int argc, char* argv[]) {
 
 	FILE*	input	= stdin;
 	FILE*	output	= stdout;
-	char*	delims	= ":";
 	int	pivot	= 0;
 	int	c_flag	= 0;
 	int	i_flag	= 0;

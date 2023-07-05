@@ -239,7 +239,6 @@ int	str_appendchar (str_t* dst, int ch) {
 int	str_substr (str_t* dst, str_t* src, strsize_t start, strsize_t len) {
 	int		result	= ok;
 	strsize_t	slen	= str_length (src);
-	strsize_t	ssize	= str_size (src);
 
 	str_setlength (dst, 0);
 	if (start <= slen && (start + len) <= slen) {

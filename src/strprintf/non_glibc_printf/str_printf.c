@@ -148,4 +148,5 @@ int	str_printf_str (FILE* output, str_t* fmt, ...) {
         count   = str_vSprintf (buffer, str_storage (fmt), ap);
         fwrite (str_storage(buffer), 1, count, output);
         str_Delete (&buffer);
+	return	count;
 }

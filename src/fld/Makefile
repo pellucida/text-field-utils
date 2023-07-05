@@ -1,5 +1,5 @@
 
-CFLAGS=-g -I../include 
+CFLAGS=-g -I../include  -Wall
 
 ALL:	debug_fld.o 
 
@@ -9,3 +9,5 @@ clean:
 distclean:	clean
 
 debug_fld.o: debug_fld.c fld.h
+debug_fld.o: debug_fld.c ../fld/fld.h
+fld.o: fld.h

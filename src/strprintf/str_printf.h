@@ -15,13 +15,13 @@
 // Functions using glibc printf extension interface
 # if	defined(_GNU_SOURCE)
 
-int     str_vprintf (FILE* __restrict output, const char* __restrict fmt, _G_va_list ap)
+int     str_vprintf (FILE* __restrict output, const char* __restrict fmt, va_list ap)
         __attribute__ ((__format__ (__printf__, 2, 0)));
 
 int     str_printf (FILE* output, const char*__restrict  fmt,...)
         __attribute__ ((__format__ (__printf__, 2, 3)));
 
-int     str_vSprintf (str_t* __restrict buf, const char* __restrict  fmt, _G_va_list ap)
+int     str_vSprintf (str_t* __restrict buf, const char* __restrict  fmt, va_list ap)
         __attribute__ ((__format__ (__printf__, 2, 0)));
 
 int     str_Sprintf (str_t* __restrict buf, const char* __restrict fmt,...)

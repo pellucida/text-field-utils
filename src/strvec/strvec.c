@@ -92,7 +92,6 @@ int	strvec_atput (strvec_t* sv, size_t index, str_t* s) {
 	int	result	= err;
 	if (index < sv->size) {
 		str_t*	ss	= sv->vec [index];
-		strflag_t	flags	= str_flags (ss);
 		if (ss == STR_EMPTY) {	// first time to use this slot
 			str_t*	copy	= 0;
 			result	= str_Copy (&copy, s);

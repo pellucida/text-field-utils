@@ -4,7 +4,7 @@ INCLUDES=../include -I../str -I../strsplit -I../strvec -I../strprintf \
 
 STR_PRINTF_O	= ../strprintf/str_printf.o
 
-CFLAGS	= -g -I$(INCLUDES) 
+CFLAGS	= -g -I$(INCLUDES)  -Wall
 
 LDFLAGS	= -g 
 
@@ -26,3 +26,7 @@ project.o: project.c  \
  ../str/str.h ../str/str_type.h ../str/str_inline.h ../str/str_io.h \
  ../str/str.h ../strprintf/str_printf.o ../strvec/strvec.h ../strsplit/strsplit.h ../fld/fld.h \
  ../fldvec/fldvec.h ../fldparse/fld_parse.h
+project.o: project.c ../include/constant.h ../include/error.h \
+  ../str/str.h ../str/str_type.h ../str/str_inline.h ../str/str_io.h \
+  ../strprintf/str_printf.h ../strvec/strvec.h ../strsplit/strsplit.h \
+  ../fld/fld.h ../fldvec/fldvec.h ../fldparse/fld_parse.h

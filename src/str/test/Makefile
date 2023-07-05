@@ -2,7 +2,7 @@
 #CC=clang
 CC=gcc
 
-CFLAGS	= -I.. -I../../include -g
+CFLAGS	= -I.. -I../../include -g -Wall
 LDFLAGS	= -g
 test-cstr-auto:	../str.o debug-str.o ../str_io.o test-cstr-auto.o
 test-str_literal:	../str.o debug-str.o ../str_io.o test-str_literal.o
